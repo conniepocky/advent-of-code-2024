@@ -23,7 +23,8 @@ def blink(stones):
     
     return finalStones
 
-for _ in range(0, 25):
+for i in range(0, 75):
+    print(i)
     data = blink(data)
 
 print(len(data))
