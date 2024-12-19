@@ -1,3 +1,5 @@
+from graphlib import TopologicalSorter
+
 def read_file(file_path):
     with open(file_path, 'r') as f:
         return f.read()
@@ -23,9 +25,19 @@ def middle(l):
     return l[len(l) // 2]
 
 part_1 = 0
+part_2 = 0
 
 for update in updates:
     if all(adheres_to_rule(r, update) for r in rules):
         part_1 += int(middle(update))
+    else:
+        sorter = TopologicalSorter()
+        for l, r in rules:
+            if l in update and r in update:
+                sorter.add(l, r)
 
-print(part_1)
+        sorted_update = list(sorter.static_order())
+
+        part_2 += int(middle(sorted_update))
+
+print(part_2)
